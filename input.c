@@ -24,8 +24,8 @@ static int			piece_is_valid(uint16_t piece)
 	if (piece == 0x0033)
 		return (1);
 	return (count_bits(piece) == 4
-			&& count_bits(piece & (piece & ~0x8888 >> 1))
-			+ count_bits(piece & (piece >> 4)) == 3);
+			&& count_bits(piece & (piece & 0x7777) << 1)
+			+ count_bits(piece & piece << 4) == 3);
 }
 
 static uint16_t		encode_piece(char *buffer)
@@ -84,7 +84,7 @@ static int			read_pieces_from_fd(int fd, uint16_t **result)
 	return (-1);
 }
 
-int					read_pieces_from_file(char *filename, uint16_t **pieces)
+int					read_pieces_from_file(const char *filename, uint16_t **pieces)
 {
 	int	fd;
 	int	ret;
