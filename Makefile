@@ -6,7 +6,7 @@ CFLAGS = -Wall -Wall
 
 SRCS = main.c
 
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:./srcs/.c=.o)
 
 all: $(NAME)
 
