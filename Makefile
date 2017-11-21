@@ -3,7 +3,7 @@ NAME = fillit
 CC = gcc
 CFLAGS = -Wall -Wextra #-Werror
 
-SRCS = ft_memcpy.c input.c main.c solve.c
+SRCS = ft_bzero.c ft_memcpy.c input.c main.c solve.c
 
 OBJS = $(SRCS:.c=.o)
 

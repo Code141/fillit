@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solve.h                                            :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/21 19:11:21 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/22 00:10:47 by sboilard         ###   ########.fr       */
+/*   Created: 2017/11/07 20:14:55 by sboilard          #+#    #+#             */
+/*   Updated: 2017/11/10 16:17:24 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SOLVE_H
-# define SOLVE_H
+#include "libft_str.h"
 
-# include <inttypes.h>
-
-typedef struct	s_fillit
+void	ft_bzero(void *s, size_t n)
 {
-	uint64_t		map[7];
-	int				map_size;
-	int				piece_count;
-	unsigned char	pieces_permut[26];
-	uint64_t		pieces[];
-}				t_fillit;
-
-void			solve(const uint16_t *pieces, int piece_count);
-
-#endif
+	while (n != 0)
+		((char *)s)[--n] = 0;
+}
