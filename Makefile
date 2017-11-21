@@ -1,23 +1,23 @@
 NAME = fillit
 
 CC = gcc
-#CFLAGS = -Wall -Wall -Werror
-CFLAGS = -Wall -Wall
+CFLAGS = -Wall -Wextra #-Werror
 
-SRCS = main.c
+SRCS = ft_memcpy.c input.c main.c solve.c
 
-OBJS = $(SRCS:./srcs/.c=.o)
+OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) $^ -o $@
 
 clean:
-	/bin/rm -f $(OBJS)
+	rm -f $(OBJS)
 
 fclean:
-	/bin/rm -f $(NAME) $(OBJS)
+	rm -f $(NAME) $(OBJS)
 
-re: fclean re
-
-.PHONY: $(SRCS) all clean fclean re
+re:
+	$(MAKE) $(MFLAGS) fclean
+	$(MAKE) $(MFLAGS) all

@@ -13,7 +13,7 @@
 #ifndef LIBFT_STR_H
 # define LIBFT_STR_H
 
-# include <string.h>
+# include <ctype.h>
 
 void	*ft_memset(void *s, int c, size_t n);
 void	ft_bzero(void *s, size_t n);

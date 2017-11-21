@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/21 19:09:29 by sboilard          #+#    #+#             */
+/*   Updated: 2017/11/21 19:21:47 by sboilard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <inttypes.h>
 #include <stdlib.h>
 #include <fcntl.h>
@@ -84,7 +96,8 @@ static int			read_pieces_from_fd(int fd, uint16_t **result)
 	return (-1);
 }
 
-int					read_pieces_from_file(const char *filename, uint16_t **pieces)
+int					read_pieces_from_file(const char *filename,
+											uint16_t **pieces)
 {
 	int	fd;
 	int	ret;
