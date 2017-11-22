@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 18:51:52 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/22 18:49:31 by sboilard         ###   ########.fr       */
+/*   Updated: 2017/11/22 19:21:58 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ static int	try_put_piece(t_fillit *ctx, uint64_t piece)
 	i = 0;
 	while (piece >> (max_offset - i) == 0)
 	{
-		while ((piece << (i % ctx->map_size) & last_column) != 0)
-			++i;
 		if (WAND(ctx->map, i, piece) == 0)
 			return (i);
 		++i;
+		while ((piece << (i % ctx->map_size) & last_column) != 0)
+			++i;
 	}
 	return (-1);
 }
