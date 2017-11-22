@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 18:51:52 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/22 19:21:58 by sboilard         ###   ########.fr       */
+/*   Updated: 2017/11/22 20:21:39 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include "libft_str.h"
 #include "solve.h"
+#include "print_map.h"
 
 /*
 ** Does not work for size < 4.
@@ -134,6 +135,6 @@ void		solve(const uint16_t *pieces, int piece_count)
 		++context->map_size;
 		resize_pieces(pieces, context);
 	}
-	/* Print result. */
+	print_map(pieces, context);
 	free(context);
 }
