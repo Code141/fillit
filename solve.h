@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 19:11:21 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/22 00:10:47 by sboilard         ###   ########.fr       */
+/*   Updated: 2017/11/22 18:31:57 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 # define SOLVE_H
 
 # include <inttypes.h>
+
+# define WOL(t, o) ((t)[(o) / 64] >> ((o) % 64))
+# define WOH(t, o) ((t)[(o) / 64 + 1] << (64 - (o) % 64))
+# define WO(t, o) (WOH(t, o) | WOL(t, o))
+# define WAND(t, o, v) (WO(t, o) & (v))
 
 typedef struct	s_fillit
 {

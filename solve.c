@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 18:51:52 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/21 23:56:46 by sboilard         ###   ########.fr       */
+/*   Updated: 2017/11/22 18:49:31 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,50 @@ static void	move(unsigned char *tab, int from, int to)
 	}
 }
 
+static int	try_put_piece(t_fillit *ctx, uint64_t piece)
+{
+	uint64_t	last_column;
+	int			max_offset;
+	int			i;
+
+	last_column =
+		((1 << ctx->map_size | 1) << ctx->map_size | 1) << (ctx->map_size - 1);
+	max_offset = ctx->map_size * ctx->map_size;
+	i = 0;
+	while (piece >> (max_offset - i) == 0)
+	{
+		while ((piece << (i % ctx->map_size) & last_column) != 0)
+			++i;
+		if (WAND(ctx->map, i, piece) == 0)
+			return (i);
+		++i;
+	}
+	return (-1);
+}
+
 static int	solve_aux(t_fillit *ctx, int i)
 {
-	int	j;
+	int			j;
+	int			offset;
+	uint64_t	piece;
 
 	if (i == ctx->piece_count)
 		return (1);
 	j = i;
 	while (j < ctx->piece_count)
 	{
-		if (0/* Placer la piece j, si possible */)
-		{
-			move(ctx->pieces_permut, j, i);
-			if (solve_aux(ctx, i + 1))
-				return (1);
-			move(ctx->pieces_permut, i, j);
-			/* Enlever la piece. */
-		}
+		piece = ctx->pieces[ctx->pieces_permut[j]];
+		offset = try_put_piece(ctx, piece);
+		if (offset < 0)
+			return (0);
+		ctx->map[offset / 64] ^= piece >> (offset % 64);
+		ctx->map[offset / 64 + 1] ^= piece << (64 - offset % 64);
+		move(ctx->pieces_permut, j, i);
+		if (solve_aux(ctx, i + 1))
+			return (1);
+		move(ctx->pieces_permut, i, j);
+		ctx->map[offset / 64] ^= piece >> (offset % 64);
+		ctx->map[offset / 64 + 1] ^= piece << (64 - offset % 64);
 		++j;
 	}
 	return (0);
