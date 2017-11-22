@@ -6,12 +6,12 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 17:30:12 by gelambin          #+#    #+#             */
-/*   Updated: 2017/11/22 20:25:27 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/11/22 20:44:59 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <unistd.h>
-# include <stdlib.h>
+#include <unistd.h>
+#include <stdlib.h>
 #include "solve.h"
 
 void	put_piece(char *str, t_fillit *ctx, int index, const uint16_t *pieces)
@@ -25,10 +25,10 @@ void	put_piece(char *str, t_fillit *ctx, int index, const uint16_t *pieces)
 	piece = (uint16_t)(pieces[(ctx->pieces_permut)[index]]);
 	while (i < 16)
 	{
-		if (piece) /* */
-			str[(i % 4)	* ctx->map_size + offset] = 'A' + index;
+		if ((piece & 8000))
+			str[(i % 4) * ctx->map_size + offset] = 'A' + index;
 		else
-			str[(i % 4)	* ctx->map_size + offset] = '.';
+			str[(i % 4) * ctx->map_size + offset] = '.';
 		piece <<= 1;
 		i++;
 	}
@@ -37,6 +37,7 @@ void	put_piece(char *str, t_fillit *ctx, int index, const uint16_t *pieces)
 int		print_map(const uint16_t *pieces, t_fillit *ctx)
 {
 	int		i;
+	int		j;
 	int		str_size;
 	char	*str;
 
@@ -45,11 +46,15 @@ int		print_map(const uint16_t *pieces, t_fillit *ctx)
 	str = (char*)malloc(sizeof(*str) * str_size);
 	if (!str)
 		return (0);
-	/*fill map with dot*/
-	/*put \n */
+	j = 0;
+	while (j != str_size)
+	{
+		str[j] = (j % ctx->map_size) ? '.' : '\n';
+		j++;
+	}
 	while (i < ctx->piece_count)
 		put_piece(str, ctx, i++, pieces);
-	write (1, str, str_size);
+	write(1, str, str_size);
 	free(str);
 	return (1);
 }
