@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 18:51:52 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/22 20:21:39 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/11/22 20:50:51 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ static void	resize_pieces(const uint16_t *pieces, t_fillit *context)
 			p <<= 4;
 		}
 		context->pieces[i] = r;
+		++i;
 	}
 }
 
