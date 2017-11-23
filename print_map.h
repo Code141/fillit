@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 17:29:47 by gelambin          #+#    #+#             */
-/*   Updated: 2017/11/22 18:44:50 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/11/23 13:51:33 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 
 # include "solve.h"
 
-int	print_map(const uint16_t *pieces, t_fillit *ctx);
+int	print_map(t_fillit *ctx);
 
 #endif

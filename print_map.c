@@ -6,7 +6,7 @@
 /*   By: gelambin <gelambin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/22 17:30:12 by gelambin          #+#    #+#             */
-/*   Updated: 2017/11/22 20:44:59 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/11/23 13:50:46 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,44 @@
 #include <stdlib.h>
 #include "solve.h"
 
-void	put_piece(char *str, t_fillit *ctx, int index, const uint16_t *pieces)
+static void	put_piece(char *str, t_fillit *ctx, int index)
 {
 	int			i;
 	int			offset;
-	uint16_t	piece;
+	uint64_t	piece;
 
 	i = 0;
-	offset = ctx->offsets[(ctx->pieces_permut)[index]];
-	piece = (uint16_t)(pieces[(ctx->pieces_permut)[index]]);
-	while (i < 16)
+	offset = ctx->offsets[index];
+	piece = ctx->pieces[index];
+	while (i < 64)
 	{
-		if ((piece & 8000))
-			str[(i % 4) * ctx->map_size + offset] = 'A' + index;
-		else
-			str[(i % 4) * ctx->map_size + offset] = '.';
-		piece <<= 1;
-		i++;
+		if (piece & 1)
+			str[i + offset + (i + offset) / ctx->map_size] = 'A' + index;
+		piece >>= 1;
+		++i;
 	}
 }
 
-int		print_map(const uint16_t *pieces, t_fillit *ctx)
+void		print_map(t_fillit *ctx)
 {
 	int		i;
 	int		j;
 	int		str_size;
 	char	*str;
 
-	i = 0;
 	str_size = (ctx->map_size + 1) * ctx->map_size;
-	str = (char*)malloc(sizeof(*str) * str_size);
+	str = (char *)malloc(sizeof(*str) * str_size);
 	if (!str)
-		return (0);
+		return ;
 	j = 0;
 	while (j != str_size)
 	{
-		str[j] = (j % ctx->map_size) ? '.' : '\n';
+		str[j] = (j % (ctx->map_size + 1) == ctx->map_size) ? '\n' : '.';
 		j++;
 	}
+	i = 0;
 	while (i < ctx->piece_count)
-		put_piece(str, ctx, i++, pieces);
+		put_piece(str, ctx, i++);
 	write(1, str, str_size);
 	free(str);
-	return (1);
 }

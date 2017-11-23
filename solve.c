@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 18:51:52 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/23 13:36:33 by sboilard         ###   ########.fr       */
+/*   Updated: 2017/11/23 14:30:22 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static void	resize_pieces(const uint16_t *pieces, t_fillit *context)
 	}
 }
 
-static void	move(unsigned char *tab, int from, int to)
+static void	move(unsigned int *tab, int from, int to)
 {
-	unsigned char t;
+	unsigned int	t;
 
 	while (from < to)
 	{
@@ -78,11 +78,7 @@ static int	try_put_piece(t_fillit *ctx, uint64_t piece)
 		if (WAND(ctx->map, i, piece) == 0)
 			return (i);
 		if ((piece << (i % ctx->map_size) & last_column) != 0)
-		{
-			++i;
-			while ((piece << (i % ctx->map_size) & last_column) != 0)
-				++i;
-		}
+			i += ctx->map_size - i % ctx->map_size;
 		else
 			++i;
 	}
@@ -95,26 +91,26 @@ static int	solve_aux(t_fillit *ctx, int i)
 	int			offset;
 	uint64_t	piece;
 
-	if (i == ctx->piece_count)
-		return (1);
 	j = i;
 	while (j < ctx->piece_count)
 	{
 		piece = ctx->pieces[ctx->pieces_permut[j]];
-		offset = try_put_piece(ctx, piece);
-		if (offset < 0)
+		if ((offset = try_put_piece(ctx, piece)) < 0)
 			return (0);
 		ctx->map[offset / 64] ^= piece << (offset % 64);
 		ctx->map[offset / 64 + 1] ^= piece >> (64 - offset % 64);
 		move(ctx->pieces_permut, j, i);
 		if (solve_aux(ctx, i + 1))
+		{
+			ctx->offsets[ctx->pieces_permut[i]] = offset;
 			return (1);
+		}
 		move(ctx->pieces_permut, i, j);
 		ctx->map[offset / 64] ^= piece << (offset % 64);
 		ctx->map[offset / 64 + 1] ^= piece >> (64 - offset % 64);
 		++j;
 	}
-	return (0);
+	return (i == j);
 }
 
 void		solve(const uint16_t *pieces, int piece_count)
@@ -141,6 +137,6 @@ void		solve(const uint16_t *pieces, int piece_count)
 		++context->map_size;
 		resize_pieces(pieces, context);
 	}
-	print_map(pieces, context);
+	print_map(context);
 	free(context);
 }

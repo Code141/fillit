@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 19:11:21 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/22 20:18:58 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/11/23 14:24:11 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ typedef struct	s_fillit
 	uint64_t		map[7];
 	int				map_size;
 	int				piece_count;
-	unsigned char	pieces_permut[26];
-	int				offsets[26];
+	unsigned int	pieces_permut[26];
+	unsigned int	offsets[26];
 	uint64_t		pieces[];
 }				t_fillit;
 
