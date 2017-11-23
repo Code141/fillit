@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 19:11:21 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/23 14:24:11 by sboilard         ###   ########.fr       */
+/*   Updated: 2017/11/23 19:22:40 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <inttypes.h>
 
 # define WOL(t, o) ((t)[(o) / 64] >> ((o) % 64))
-# define WOH(t, o) ((t)[(o) / 64 + 1] << (64 - (o) % 64))
+# define WOH(t, o) ((o) % 64 > 0 ? (t)[(o) / 64 + 1] << (64 - (o) % 64) : 0)
 # define WO(t, o) (WOH(t, o) | WOL(t, o))
 # define WAND(t, o, v) (WO(t, o) & (v))
 

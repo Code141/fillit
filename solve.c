@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 18:51:52 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/23 14:30:22 by sboilard         ###   ########.fr       */
+/*   Updated: 2017/11/23 19:08:41 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static int	try_put_piece(t_fillit *ctx, uint64_t piece)
 		((1 << ctx->map_size | 1) << ctx->map_size | 1) << (ctx->map_size - 1);
 	max_offset = ctx->map_size * ctx->map_size;
 	i = 0;
-	while (piece >> (max_offset - i) == 0)
+	while (max_offset - i >= 64 || piece >> (max_offset - i) == 0)
 	{
 		if (WAND(ctx->map, i, piece) == 0)
 			return (i);
