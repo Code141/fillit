@@ -12,6 +12,7 @@
 
 #include <inttypes.h>
 #include <stdlib.h>
+#include "libft_math.h"
 #include "libft_str.h"
 #include "solve.h"
 #include "print_map.h"
@@ -123,7 +124,7 @@ void		solve(const uint16_t *pieces, int piece_count)
 	if (context == NULL)
 		return ;
 	ft_bzero(context->map, sizeof(context->map));
-	context->map_size = 4;
+	context->map_size = ft_sqrti(piece_count * 4);
 	context->piece_count = piece_count;
 	i = 0;
 	while (i < piece_count)
