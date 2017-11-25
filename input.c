@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 19:09:29 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/25 21:03:21 by sboilard         ###   ########.fr       */
+/*   Updated: 2017/11/25 22:52:14 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "libft_str.h"
 #include "bits.h"
 
-static int			piece_is_valid(uint16_t piece)
+static int		piece_is_valid(uint16_t piece)
 {
 	if (piece == 0x0033)
 		return (1);
@@ -26,7 +26,7 @@ static int			piece_is_valid(uint16_t piece)
 			+ count_bits(piece & piece << 4) == 3);
 }
 
-static uint16_t		encode_piece(char *buffer)
+static uint16_t	encode_piece(char *buffer)
 {
 	uint16_t	piece;
 	int			i;
@@ -55,7 +55,7 @@ static uint16_t		encode_piece(char *buffer)
 	return (piece_is_valid(piece) ? piece : 0);
 }
 
-static int			read_pieces_from_fd(int fd, uint16_t **result)
+static int		read_pieces_from_fd(int fd, uint16_t **result)
 {
 	char		buffer[20];
 	uint16_t	pieces[26];
@@ -82,8 +82,7 @@ static int			read_pieces_from_fd(int fd, uint16_t **result)
 	return (-1);
 }
 
-int					read_pieces_from_file(const char *filename,
-											uint16_t **pieces)
+int				read_pieces_from_file(const char *filename, uint16_t **pieces)
 {
 	int	fd;
 	int	ret;
