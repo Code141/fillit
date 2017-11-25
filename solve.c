@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 18:51:52 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/25 21:03:38 by sboilard         ###   ########.fr       */
+/*   Updated: 2017/11/25 21:14:08 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,17 +65,22 @@ static void	move(unsigned int *tab, int from, int to)
 	}
 }
 
-static int	try_put_piece(t_fillit *ctx, uint64_t piece)
+static int	try_put_piece(t_fillit *ctx, uint64_t piece, int i)
 {
 	uint64_t	last_column;
 	int			max_offset;
-	int			i;
+	int			stop;
 
 	last_column =
 		((1 << ctx->map_size | 1) << ctx->map_size | 1) << (ctx->map_size - 1);
 	max_offset = ctx->map_size * ctx->map_size;
-	i = 0;
-	while (max_offset - i >= 64 || piece >> (max_offset - i) == 0)
+	if (i == 0)
+		stop = max_offset;
+	else if ((piece << ((i - 1) % ctx->map_size) & last_column) != 0)
+		return (-1);
+	else
+		stop = i + ctx->map_size - i % ctx->map_size;
+	while (i < stop && (max_offset - i >= 64 || piece >> (max_offset - i) == 0))
 	{
 		if (WAND(ctx->map, i, piece) == 0)
 			return (i);
@@ -97,17 +102,19 @@ static int	solve_aux(t_fillit *ctx, int i)
 	while (j < ctx->piece_count)
 	{
 		piece = ctx->pieces[ctx->pieces_permut[j]];
-		if ((offset = try_put_piece(ctx, piece)) < 0)
-			return (0);
-		wxor(ctx->map, piece, offset);
-		move(ctx->pieces_permut, j, i);
-		if (solve_aux(ctx, i + 1))
+		offset = -1;
+		while ((offset = try_put_piece(ctx, piece, offset + 1)) >= 0)
 		{
-			ctx->offsets[ctx->pieces_permut[i]] = offset;
-			return (1);
+			wxor(ctx->map, piece, offset);
+			move(ctx->pieces_permut, j, i);
+			if (solve_aux(ctx, i + 1))
+			{
+				ctx->offsets[ctx->pieces_permut[i]] = offset;
+				return (1);
+			}
+			move(ctx->pieces_permut, i, j);
+			wxor(ctx->map, piece, offset);
 		}
-		move(ctx->pieces_permut, i, j);
-		wxor(ctx->map, piece, offset);
 		++j;
 	}
 	return (i == j);
