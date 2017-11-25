@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 18:51:52 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/23 19:08:41 by sboilard         ###   ########.fr       */
+/*   Updated: 2017/11/25 21:03:38 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include "libft_math.h"
 #include "libft_str.h"
+#include "bits.h"
 #include "solve.h"
 #include "print_map.h"
 
@@ -98,8 +99,7 @@ static int	solve_aux(t_fillit *ctx, int i)
 		piece = ctx->pieces[ctx->pieces_permut[j]];
 		if ((offset = try_put_piece(ctx, piece)) < 0)
 			return (0);
-		ctx->map[offset / 64] ^= piece << (offset % 64);
-		ctx->map[offset / 64 + 1] ^= piece >> (64 - offset % 64);
+		wxor(ctx->map, piece, offset);
 		move(ctx->pieces_permut, j, i);
 		if (solve_aux(ctx, i + 1))
 		{
@@ -107,8 +107,7 @@ static int	solve_aux(t_fillit *ctx, int i)
 			return (1);
 		}
 		move(ctx->pieces_permut, i, j);
-		ctx->map[offset / 64] ^= piece << (offset % 64);
-		ctx->map[offset / 64 + 1] ^= piece >> (64 - offset % 64);
+		wxor(ctx->map, piece, offset);
 		++j;
 	}
 	return (i == j);

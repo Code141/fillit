@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 19:09:29 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/21 19:21:47 by sboilard         ###   ########.fr       */
+/*   Updated: 2017/11/25 21:03:21 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include "libft_str.h"
-
-static unsigned int	count_bits(uint16_t piece)
-{
-	int			count;
-	uint16_t	tmp;
-
-	count = 0;
-	tmp = piece;
-	while (tmp)
-	{
-		count += tmp & 1;
-		tmp >>= 1;
-	}
-	return (count);
-}
+#include "bits.h"
 
 static int			piece_is_valid(uint16_t piece)
 {

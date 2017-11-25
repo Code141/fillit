@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   solve.h                                            :+:      :+:    :+:   */
+/*   bits.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/21 19:11:21 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/25 21:04:07 by sboilard         ###   ########.fr       */
+/*   Created: 2017/11/25 20:58:29 by sboilard          #+#    #+#             */
+/*   Updated: 2017/11/25 21:07:21 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SOLVE_H
-# define SOLVE_H
+#include <inttypes.h>
 
-# include <inttypes.h>
-
-typedef struct	s_fillit
+void			wxor(uint64_t tab[], uint64_t val, int offset)
 {
-	uint64_t		map[7];
-	int				map_size;
-	int				piece_count;
-	unsigned int	pieces_permut[26];
-	unsigned int	offsets[26];
-	uint64_t		pieces[];
-}				t_fillit;
+	tab[offset / 64] ^= val << (offset % 64);
+	if (offset % 64 != 0)
+		tab[offset / 64 + 1] ^= val >> (64 - offset % 64);
+}
 
-void			solve(const uint16_t *pieces, int piece_count);
+unsigned int	count_bits(uint16_t val)
+{
+	unsigned int	count;
 
-#endif
+	count = 0;
+	while (val != 0)
+	{
+		count += val & 1;
+		val >>= 1;
+	}
+	return (count);
+}
