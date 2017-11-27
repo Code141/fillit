@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 16:05:33 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/11 18:59:46 by sboilard         ###   ########.fr       */
+/*   Updated: 2017/11/27 13:21:02 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,6 @@ char	*ft_strsub(const char *s, unsigned int start, size_t len);
 char	*ft_strjoin(const char *s1, const char *s2);
 char	*ft_strtrim(const char *s);
 char	**ft_strsplit(const char *s, char c);
+void	ft_swap(unsigned int *a, unsigned int *b);
 
 #endif
