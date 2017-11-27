@@ -3,8 +3,9 @@ NAME = fillit
 CC = gcc
 CFLAGS = -Wall -Wextra #-Werror
 
-SRCS = ft_swap.c	ft_bzero.c		ft_memcpy.c		ft_sqrti.c		\
-	   bits.c		input.c			 main.c			 solve.c print_map.c
+SRCS =	main.c		input.c		solve.c		print_map.c		\
+		ft_swap.c	ft_bzero.c	ft_memcpy.c	ft_sqrti.c		\
+		bits.c
 
 OBJS = $(SRCS:.c=.o)
 

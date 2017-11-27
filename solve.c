@@ -6,21 +6,16 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 18:51:52 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/27 14:57:17 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/11/27 16:29:06 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <inttypes.h>
 #include <stdlib.h>
-#include "libft_math.h"
-#include "libft_str.h"
+#include "libft.h"
 #include "bits.h"
 #include "solve.h"
 #include "print_map.h"
-
-/*
-** Does not work for size < 4.
-*/
 
 static void	resize_pieces(const uint16_t *pieces, t_fillit *context)
 {
@@ -42,6 +37,26 @@ static void	resize_pieces(const uint16_t *pieces, t_fillit *context)
 		}
 		context->pieces[i] = r;
 		++i;
+	}
+}
+
+static void	move(unsigned int *tab, int from, int to)
+{
+	unsigned int	t;
+
+	while (from < to)
+	{
+		t = tab[from];
+		tab[from] = tab[from + 1];
+		tab[from + 1] = t;
+		++from;
+	}
+	while (from > to)
+	{
+		t = tab[from];
+		tab[from] = tab[from - 1];
+		tab[from - 1] = t;
+		--from;
 	}
 }
 
@@ -78,26 +93,27 @@ static int	solve_aux(t_fillit *ctx, int i)
 	int			offset;
 	uint64_t	piece;
 
+	if (i == ctx->piece_count)
+		return (1);
 	j = i;
 	while (j < ctx->piece_count)
 	{
 		piece = ctx->pieces[ctx->pieces_permut[j]];
 		offset = -1;
+		ft_swap(ctx->pieces_permut + j++, ctx->pieces_permut + i);
 		while ((offset = try_put_piece(ctx, piece, offset + 1)) >= 0)
 		{
 			wxor(ctx->map, piece, offset);
-			ft_swap(ctx->pieces_permut + j, ctx->pieces_permut + i);
 			if (solve_aux(ctx, i + 1))
 			{
 				ctx->offsets[ctx->pieces_permut[i]] = offset;
 				return (1);
 			}
-			ft_swap(ctx->pieces_permut + i, ctx->pieces_permut + j);
 			wxor(ctx->map, piece, offset);
 		}
-		++j;
 	}
-	return (i == j);
+	move(ctx->pieces_permut, i, j - 1);
+	return (0);
 }
 
 void		solve(const uint16_t *pieces, int piece_count)
@@ -106,7 +122,7 @@ void		solve(const uint16_t *pieces, int piece_count)
 	int			i;
 
 	if (!(context = (t_fillit *)
-	malloc(sizeof(*context) + sizeof(*context->pieces) * piece_count)))
+		malloc(sizeof(*context) + sizeof(*context->pieces) * piece_count)))
 		return ;
 	ft_bzero(context->map, sizeof(context->map));
 	context->map_size = ft_sqrti(piece_count * 4);

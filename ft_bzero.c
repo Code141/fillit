@@ -6,11 +6,11 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 20:14:55 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/10 16:17:24 by sboilard         ###   ########.fr       */
+/*   Updated: 2017/11/27 16:30:07 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft_str.h"
+#include <ctype.h>
 
 void	ft_bzero(void *s, size_t n)
 {

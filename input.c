@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 19:09:29 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/25 22:52:14 by sboilard         ###   ########.fr       */
+/*   Updated: 2017/11/27 16:29:36 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include "libft_str.h"
+#include "libft.h"
 #include "bits.h"
 
 static int		piece_is_valid(uint16_t piece)
