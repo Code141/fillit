@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 18:51:52 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/25 21:14:08 by sboilard         ###   ########.fr       */
+/*   Updated: 2017/11/27 12:45:17 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ void		solve(const uint16_t *pieces, int piece_count)
 	while (i < piece_count)
 	{
 		context->pieces_permut[i] = i;
+		if ((pieces[i] & 0xffcc) && context->map_size == 2)
+			context->map_size = 3;
 		++i;
 	}
 	resize_pieces(pieces, context);
