@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 18:51:52 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/27 12:45:17 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/11/27 13:19:50 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,6 @@ static void	resize_pieces(const uint16_t *pieces, t_fillit *context)
 		}
 		context->pieces[i] = r;
 		++i;
-	}
-}
-
-static void	move(unsigned int *tab, int from, int to)
-{
-	unsigned int	t;
-
-	while (from < to)
-	{
-		t = tab[from];
-		tab[from] = tab[from + 1];
-		tab[from + 1] = t;
-		++from;
-	}
-	while (from > to)
-	{
-		t = tab[from];
-		tab[from] = tab[from - 1];
-		tab[from - 1] = t;
-		--from;
 	}
 }
 
@@ -106,13 +86,13 @@ static int	solve_aux(t_fillit *ctx, int i)
 		while ((offset = try_put_piece(ctx, piece, offset + 1)) >= 0)
 		{
 			wxor(ctx->map, piece, offset);
-			move(ctx->pieces_permut, j, i);
+			ft_swap(ctx->pieces_permut + j, ctx->pieces_permut + i);
 			if (solve_aux(ctx, i + 1))
 			{
 				ctx->offsets[ctx->pieces_permut[i]] = offset;
 				return (1);
 			}
-			move(ctx->pieces_permut, i, j);
+			ft_swap(ctx->pieces_permut + i, ctx->pieces_permut + j);
 			wxor(ctx->map, piece, offset);
 		}
 		++j;
