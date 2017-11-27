@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/25 20:58:29 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/27 16:49:51 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/11/27 16:56:37 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ size_t			initial_map_size(const uint16_t *pieces, int piece_count)
 	if (size == 2 && pieces[0] != 0x0033)
 		size = 3;
 	if (size == 3 && (pieces[0] == 0x1111 || pieces[0] == 0x000f
-		||	pieces[1] == 0x1111 ||  pieces[1] == 0x000f))
+		|| pieces[1] == 0x1111 || pieces[1] == 0x000f))
 		size = 4;
 	return (size);
-}	
+}
 
 void			wxor(uint64_t tab[], uint64_t val, int offset)
 {

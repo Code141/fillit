@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 18:51:52 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/27 16:50:31 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/11/27 16:56:51 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void		solve(const uint16_t *pieces, int piece_count)
 	int			i;
 
 	if (!(context = (t_fillit *)
-				malloc(sizeof(*context) + sizeof(*context->pieces) * piece_count)))
+		malloc(sizeof(*context) + sizeof(*context->pieces) * piece_count)))
 		return ;
 	ft_bzero(context->map, sizeof(context->map));
 	context->map_size = initial_map_size(pieces, piece_count);
