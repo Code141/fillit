@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 19:10:21 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/27 17:04:24 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/11/27 20:13:53 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		write(2, "Usage: fillit source_file\n", 27);
+		write(2, "usage: fillit source_file\n", 27);
 		return (1);
 	}
 	piece_count = read_pieces_from_file(argv[1], &pieces);
