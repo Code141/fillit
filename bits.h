@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/25 20:55:34 by sboilard          #+#    #+#             */
-/*   Updated: 2017/11/27 16:50:52 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/01 16:43:02 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define BITS_H
 
 # include <inttypes.h>
+
+# define SHR_64_GUARD(val, off) ((off) < 64 ? (val) >> (off) : 0)
 
 # define WOL(t, o) ((t)[(o) / 64] >> ((o) % 64))
 # define WOH(t, o) ((o) % 64 > 0 ? (t)[(o) / 64 + 1] << (64 - (o) % 64) : 0)
