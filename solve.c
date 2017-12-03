@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 18:51:52 by sboilard          #+#    #+#             */
-/*   Updated: 2017/12/01 16:47:26 by sboilard         ###   ########.fr       */
+/*   Updated: 2017/12/03 17:27:13 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,9 @@ static int	try_put_piece(t_fillit *ctx, int i)
 		return (1);
 	piece = ctx->pieces[i];
 	offset = 0;
-	while (SHR_64_GUARD(piece, ctx->max_offset - offset) == 0)
+	while (shr_64_guard(piece, ctx->max_offset - offset) == 0)
 	{
-		if (WAND(ctx->map, offset, piece) == 0)
+		if (wand(ctx->map, offset, piece) == 0)
 		{
 			wxor(ctx->map, piece, offset);
 			if (try_put_piece(ctx, i + 1))
