@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/25 20:55:34 by sboilard          #+#    #+#             */
-/*   Updated: 2017/12/03 17:27:41 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/03 20:08:59 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 # include <inttypes.h>
 
 unsigned int	count_bits(uint16_t val);
-int				wand(uint64_t t[], unsigned int o, uint64_t v);
-int				shr_64_guard(uint64_t val, int off);
+uint64_t		shr_64_guard(uint64_t value, int offset);
 void			wxor(uint64_t tab[], uint64_t val, int offset);
+uint64_t		wand(uint64_t tab[], unsigned int offset, uint64_t value);
 size_t			initial_map_size(const uint16_t *pieces, int piece_count);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/25 20:58:29 by sboilard          #+#    #+#             */
-/*   Updated: 2017/12/03 17:27:59 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/03 20:08:59 by sboilard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,26 +27,28 @@ size_t			initial_map_size(const uint16_t *pieces, int piece_count)
 	return (size);
 }
 
-int				shr_64_guard(uint64_t val, int off)
+uint64_t		shr_64_guard(uint64_t value, unsigned int offset)
 {
-	return ((off) < 64 ? (val) >> (off) : 0);
+	return (offset < 64 ? value >> offset : 0);
 }
 
-void			wxor(uint64_t tab[], uint64_t val, int offset)
+void			wxor(uint64_t tab[], uint64_t value, int offset)
 {
-	tab[offset / 64] ^= val << (offset % 64);
+	tab[offset / 64] ^= value << offset % 64;
 	if (offset % 64 != 0)
-		tab[offset / 64 + 1] ^= val >> (64 - offset % 64);
+		tab[offset / 64 + 1] ^= value >> (64 - offset % 64);
 }
 
-int				wand(uint64_t t[], unsigned int o, uint64_t v)
+uint64_t		wand(uint64_t tab[], unsigned int offset, uint64_t value)
 {
-	uint64_t	wol;
-	uint64_t	woh;
+	uint64_t	lower_bits;
+	uint64_t	higher_bits;
 
-	wol = t[o / 64] >> (o % 64);
-	woh = o % 64 > 0 ? t[o / 64 + 1] << (64 - o % 64) : 0;
-	return ((wol | woh) & v);
+	lower_bits = tab[offset / 64] >> offset % 64;
+	if (offset % 64 == 0)
+		return (lower_bits & value);
+	higher_bits = tab[offset / 64 + 1] << (64 - offset % 64);
+	return ((higher_bits | lower_bits) & value);
 }
 
 unsigned int	count_bits(uint16_t val)
