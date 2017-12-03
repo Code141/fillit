@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/21 18:51:52 by sboilard          #+#    #+#             */
-/*   Updated: 2017/12/03 17:27:13 by gelambin         ###   ########.fr       */
+/*   Updated: 2017/12/03 20:17:56 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static void	refresh_context(const uint16_t *pieces, t_fillit *context)
 
 static int	try_put_piece(t_fillit *ctx, int i)
 {
-	uint64_t	piece;
-	int			offset;
+	uint64_t		piece;
+	unsigned int	offset;
 
 	if (i == ctx->piece_count)
 		return (1);

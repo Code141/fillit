@@ -6,7 +6,7 @@
 /*   By: sboilard <sboilard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/25 20:58:29 by sboilard          #+#    #+#             */
-/*   Updated: 2017/12/03 20:08:59 by sboilard         ###   ########.fr       */
+/*   Updated: 2017/12/03 20:17:57 by gelambin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ uint64_t		shr_64_guard(uint64_t value, unsigned int offset)
 	return (offset < 64 ? value >> offset : 0);
 }
 
-void			wxor(uint64_t tab[], uint64_t value, int offset)
+void			wxor(uint64_t tab[], uint64_t value, unsigned int offset)
 {
 	tab[offset / 64] ^= value << offset % 64;
 	if (offset % 64 != 0)
